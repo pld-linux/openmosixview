@@ -118,5 +118,6 @@ fi
 
 
 %files collector
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/openmosixcollector
 %attr(754,root,root) /etc/rc.d/init.d/openmosixcollector
