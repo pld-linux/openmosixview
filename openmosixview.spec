@@ -1,5 +1,5 @@
-Summary:	openMosixview is a cluster-management GUI
-Summary(pl):	openMosixview to graficzny interfejs do zarz±dzania clustrem
+Summary:	openMosixview - a cluster-management GUI
+Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
 Name:		openmosixview
 Version:	1.4
 Release:	0.3
@@ -8,16 +8,16 @@ License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
 Source1:	openmosixcollector.init
-Url:		http://www.openmosixview.com
+URL:		http://www.openmosixview.com/
+BuildRequires:	libpng-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	zlib-devel
-BuildRequires:	libstdc++-devel
-BuildRequires:	libpng-devel
 Requires:	%{name}-collector
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-an openMosix-cluster management GUI
+An openMosix-cluster management GUI.
 
 openMosixview - the main monitoring+admistration application
 openMosixprocs - a process-box for managing processes
@@ -27,30 +27,33 @@ openMosixmigmon - for monitoring process migration
 3dmosmon - a 3d view for monitoring your cluster
 
 %description -l pl
-graficzny interfejs do zarz±dzania clustrem openMosix
+Graficzny interfejs do zarz±dzania klastrem openMosix.
 
-openMosixview - g³ówny program administracyjno/monitoruj±cy
-openMosixprocs - 
+openMosixview - g³ówny program administracyjno-monitoruj±cy
+openMosixprocs - narzêdzie do zarz±dzania procesami
 openMosixanalyzer - program analizuj±cy dane zebrane przez openMosixcollector
-openMosixhistory - program generuj±cy historie procesów Twojego clustra
-openMosixmigmon - program monitoruj±cy migracje procesów
-3dmosmon - program generuj±cy trójwymiarowy widok Twojego clustra
+openMosixhistory - program generuj±cy historiê procesów klastra
+openMosixmigmon - program monitoruj±cy migracjê procesów
+3dmosmon - program generuj±cy trójwymiarowy widok klastra
 
 %package collector
 Summary:	collecting daemon which logs cluster+node informations
 Summary(pl):	demon zbieraj±cy informacje z nodów
 Group:		Applications/System
+PreReq:		rc-scripts
 Requires(post,preun): /sbin/chkconfig
 
 %description collector
-openMosixcollector - collecting daemon which logs cluster+node informations
+openMosixcollector - collecting daemon which logs cluster+node
+information.
 
 %description -l pl collector
-openMosixcollector -  demon zbieraj±cy informacje z nodów
+openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
 
 %prep
 %setup -q
 
+%build
 TOPDIR=`pwd`
 TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon"
 
@@ -61,12 +64,6 @@ do
 	cd ${TOPDIR}
 done
 
-
-%build
-rm -rf $RPM_BUILD_ROOT
-
-TOPDIR=`pwd`
-TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon"
 for i in ${TOOLZ}
 do
         cd ${i}
@@ -76,7 +73,6 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/ \
 	   $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
@@ -114,10 +110,9 @@ if [ "$1" = "0" ]; then
         /sbin/chkconfig --del openmosixcollector
 fi
 
-
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog TODO 
+%doc AUTHORS ChangeLog TODO
 %attr(755,root,root) %{_bindir}/openmosixanalyzer
 %attr(755,root,root) %{_bindir}/openmosixhistory
 %attr(755,root,root) %{_bindir}/openmosixmigmon
