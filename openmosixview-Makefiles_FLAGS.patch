@@ -1,0 +1,337 @@
+diff -Nur openmosixview-1.5.orig/3dmon/3dmosmon/Makefile openmosixview-1.5/3dmon/3dmosmon/Makefile
+--- openmosixview-1.5.orig/3dmon/3dmosmon/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/3dmon/3dmosmon/Makefile	2004-02-17 16:08:51.000000000 +0100
+@@ -7,7 +7,7 @@
+ CFLAGS= -O
+ LDFLAGS= -s -lm -lGL -lGLU -lglut -lX11 -lXi -lXmu
+ LIBDIR=-L/usr/X11R6/lib/
+-CC=g++
++CXX=g++
+ INSTALL=install
+ SRCS=3dmosmon.cpp barmanager.cpp objects.cpp
+ OBJS=3dmosmon.o barmanager.o objects.o
+@@ -19,7 +19,7 @@
+ 
+ # To make the executable
+ 3dmosmon: $(OBJS)
+-	$(CC) $(LIBDIR) $(LDFLAGS) -o $@ $(OBJS)
++	$(CXX) $(LIBDIR) $(LDFLAGS) -o $@ $(OBJS)
+ 
+ # To install it in the right place
+ install: 3dmosmon
+diff -Nur openmosixview-1.5.orig/openmosixanalyzer/Makefile openmosixview-1.5/openmosixanalyzer/Makefile
+--- openmosixview-1.5.orig/openmosixanalyzer/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixanalyzer/Makefile	2004-02-17 16:09:31.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixanalyzer
+ OBJECTS=nodeinfo.o clusterinfo.o clustermem.o clusterload.o memanalyzer.o loadanalyzer.o openmosixanalyzerview.o openmosixanalyzerdoc.o openmosixanalyzer.o main.o clusterinfo.moc.o clustermem.moc.o openmosixanalyzerdoc.moc.o clusterload.moc.o openmosixanalyzer.moc.o openmosixanalyzerview.moc.o nodeinfo.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -30,16 +30,16 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c nodeinfo.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clusterinfo.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clustermem.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c memanalyzer.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clusterload.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c loadanalyzer.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerview.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerdoc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzer.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c nodeinfo.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clusterinfo.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clustermem.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c memanalyzer.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clusterload.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c loadanalyzer.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerview.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerdoc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzer.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./nodeinfo.h -o nodeinfo.moc.cpp; \
+@@ -62,17 +62,17 @@
+ 	 exit -1; \
+ 	fi;
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c nodeinfo.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clusterinfo.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clustermem.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c clusterload.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerdoc.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerview.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixanalyzer.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c nodeinfo.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clusterinfo.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clustermem.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c clusterload.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerdoc.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzerview.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixanalyzer.moc.cpp 
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ install:
+diff -Nur openmosixview-1.5.orig/openmosixcollector/Makefile openmosixview-1.5/openmosixcollector/Makefile
+--- openmosixview-1.5.orig/openmosixcollector/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixcollector/Makefile	2004-02-17 16:09:20.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=g++
++CXX=g++
+ TARGET=openmosixcollector
+ INITSCRIPT=openmosixcollector.init
+ OBJECTS=openmosixcollector.o main.o
+@@ -27,10 +27,10 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixcollector.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixcollector.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+-	$(GCC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)
++	$(CXX) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)
+ 
+ 
+ install:
+diff -Nur openmosixview-1.5.orig/openmosixhistory/Makefile openmosixview-1.5/openmosixhistory/Makefile
+--- openmosixview-1.5.orig/openmosixhistory/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixhistory/Makefile	2004-02-17 16:09:38.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixhistory
+ OBJECTS=openmosixhistoryview.o openmosixhistorydoc.o openmosixhistory.o main.o openmosixhistory.moc.o openmosixhistoryview.moc.o openmosixhistorydoc.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -30,10 +30,10 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistoryview.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistorydoc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistory.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistoryview.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistorydoc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistory.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./openmosixhistorydoc.h -o openmosixhistorydoc.moc.cpp; \
+@@ -48,13 +48,13 @@
+ 	 exit -1; \
+ 	fi;
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistorydoc.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistoryview.moc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixhistory.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistorydoc.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistoryview.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixhistory.moc.cpp
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ 
+diff -Nur openmosixview-1.5.orig/openmosixmigmon/Makefile openmosixview-1.5/openmosixmigmon/Makefile
+--- openmosixview-1.5.orig/openmosixmigmon/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixmigmon/Makefile	2004-02-17 16:09:45.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixmigmon
+ OBJECTS=procwidget.o omproc.o omnode.o nodewidget.o openmosixmigmon.o main.o nodewidget.moc.o procwidget.moc.o openmosixmigmon.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -30,12 +30,12 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c procwidget.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c omproc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c omnode.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c nodewidget.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixmigmon.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c procwidget.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c omproc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c omnode.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c nodewidget.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixmigmon.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./nodewidget.h -o nodewidget.moc.cpp; \
+@@ -50,13 +50,13 @@
+ 	 exit -1; \
+ 	fi;
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c nodewidget.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c procwidget.moc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixmigmon.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c nodewidget.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c procwidget.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixmigmon.moc.cpp
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ install:
+diff -Nur openmosixview-1.5.orig/openmosixpidlog/Makefile openmosixview-1.5/openmosixpidlog/Makefile
+--- openmosixview-1.5.orig/openmosixpidlog/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixpidlog/Makefile	2004-02-17 16:09:52.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixpidlog
+ OBJECTS=cpuusage.o openmosixpidlog.o main.o movieplayer.moc.o cpuusage.moc.o openmosixpidlog.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -30,9 +30,9 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixpidlog.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c cpuusage.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixpidlog.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c cpuusage.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./cpuusage.h -o cpuusage.moc.cpp; \
+@@ -47,13 +47,13 @@
+ 	 exit -1; \
+ 	fi;
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c cpuusage.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c movieplayer.moc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixpidlog.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c cpuusage.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c movieplayer.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixpidlog.moc.cpp
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ 
+diff -Nur openmosixview-1.5.orig/openmosixprocs/Makefile openmosixview-1.5/openmosixprocs/Makefile
+--- openmosixview-1.5.orig/openmosixprocs/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixprocs/Makefile	2004-02-17 16:09:08.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixprocs
+ OBJECTS=openmosixprocs.o main.o openmosixprocs.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -30,8 +30,8 @@
+ INITDIR=/etc/init.d/
+ 
+ all: clean
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixprocs.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixprocs.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./openmosixprocs.h -o openmosixprocs.moc.cpp; \
+@@ -42,11 +42,11 @@
+ 	 exit -1; \
+ 	fi;
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixprocs.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixprocs.moc.cpp
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ install:
+diff -Nur openmosixview-1.5.orig/openmosixview/Makefile openmosixview-1.5/openmosixview/Makefile
+--- openmosixview-1.5.orig/openmosixview/Makefile	2004-02-17 16:05:29.000000000 +0100
++++ openmosixview-1.5/openmosixview/Makefile	2004-02-17 16:08:15.000000000 +0100
+@@ -14,7 +14,7 @@
+ # *                                                                         *
+ # ***************************************************************************
+ 
+-GCC=c++
++CXX=c++
+ TARGET=openmosixview
+ OBJECTS=openmosixviewview.o openmosixviewdoc.o openmosixview.o main.o openmosixviewdoc.moc.o openmosixviewview.moc.o openmosixview.moc.o
+ INCLUDES=-I. -I.. -I$(QTDIR)/include -I/usr/include/qt -I/usr/X11R6/include
+@@ -31,10 +31,10 @@
+ 
+ all: clean
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixviewview.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixviewdoc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixview.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c main.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixviewview.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixviewdoc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixview.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c main.cpp
+ 
+ 	if [ -f $(MOC) ]; \
+ 	 then $(MOC) ./openmosixviewdoc.h -o openmosixviewdoc.moc.cpp; \
+@@ -50,13 +50,13 @@
+ 	fi;
+ 
+ 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixviewdoc.moc.cpp 
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixviewview.moc.cpp
+-	$(GCC) $(INCLUDES) $(CFLAGS) -c openmosixview.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixviewdoc.moc.cpp 
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixviewview.moc.cpp
++	$(CXX) $(INCLUDES) $(CFLAGS) -c openmosixview.moc.cpp
+ 
+-	if  $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
++	if  $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS); \
+ 	 then echo "linking with libqt"; \
+-	 else echo "linking with libqt-mt"; $(GCC) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
++	 else echo "linking with libqt-mt"; $(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBSMT); \
+ 	fi;
+ 
+ install:
