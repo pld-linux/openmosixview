@@ -2,7 +2,7 @@ Summary:	openMosixview is a cluster-management GUI
 Summary(pl):	openMosixview to graficzny interfejs do zarz±dzania clustrem
 Name:		openmosixview
 Version:	1.4
-Release:	0.2
+Release:	0.3
 Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
@@ -13,6 +13,7 @@ BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	zlib-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libpng-devel
+Requires:	%{name}-collector
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -20,7 +21,6 @@ an openMosix-cluster management GUI
 
 openMosixview - the main monitoring+admistration application
 openMosixprocs - a process-box for managing processes
-openMosixcollector - collecting daemon which logs cluster+node informations
 openMosixanalyzer - for analyzing the data collected by the openMosixcollector
 openMosixhistory - a process-history for your cluster
 openMosixmigmon - for monitoring process migration
@@ -31,12 +31,22 @@ graficzny interfejs do zarz±dzania clustrem openMosix
 
 openMosixview - g³ówny program administracyjno/monitoruj±cy
 openMosixprocs - 
-openMosixcollector -  demon zbieraj±cy informacje z nodów
 openMosixanalyzer - program analizuj±cy dane zebrane przez openMosixcollector
 openMosixhistory - program generuj±cy historie procesów Twojego clustra
 openMosixmigmon - program monitoruj±cy migracje procesów
 3dmosmon - program generuj±cy trójwymiarowy widok Twojego clustra
 
+%package collector
+Summary:	collecting daemon which logs cluster+node informations
+Summary(pl):	demon zbieraj±cy informacje z nodów
+Group:		Applications/System
+Requires(post,preun): /sbin/chkconfig
+
+%description collector
+openMosixcollector - collecting daemon which logs cluster+node informations
+
+%description -l pl collector
+openMosixcollector -  demon zbieraj±cy informacje z nodów
 
 %prep
 %setup -q
@@ -67,7 +77,8 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/ \
+	   $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 TOPDIR=`pwd`
 TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon"
@@ -76,6 +87,10 @@ do
         cd ${i}
 	%{__make} DESTDIR=$RPM_BUILD_ROOT install
         cd ${TOPDIR}
+	if [ ${i} != "openmosixcollector" ]
+	then
+		mv $RPM_BUILD_ROOT/usr/doc/${i} $RPM_BUILD_ROOT%{_docdir}/${i}
+	fi
 done
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/openmosixcollector
@@ -83,7 +98,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/openmosixcollector
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post 
+%post collector
 /sbin/chkconfig --add openmosixcollector
 if [ -f /var/lock/subsys/openmosixcollector ]; then
         /etc/rc.d/init.d/openmosixcollector restart 1>&2
@@ -91,7 +106,7 @@ else
         echo "Type \"/etc/rc.d/init.d/openmosixcollector start\" to start openmosixcollector." 1>&2
 fi
 
-%preun
+%preun collector
 if [ "$1" = "0" ]; then
         if [ -f /var/lock/subsys/openmosixcollector ]; then
                 /etc/rc.d/init.d/openmosixcollector stop 1>&2
@@ -102,6 +117,13 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog TODO
-%attr(755,root,root) %{_bindir}/*
+%doc AUTHORS ChangeLog TODO 
+%attr(755,root,root) %{_bindir}/openmosixanalyzer
+%attr(755,root,root) %{_bindir}/openmosixhistory
+%attr(755,root,root) %{_bindir}/openmosixmigmon
+%attr(755,root,root) %{_bindir}/openmosixprocs
+%{_docdir}/*/*.html
+
+%files collector
+%attr(755,root,root) %{_bindir}/openmosixcollector
 %attr(755,root,root) /etc/rc.d/init.d/openmosixcollector
