@@ -7,6 +7,7 @@ Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
+# Source0-md5:	2e8fe16860cc9581194bf14bb4896b1d
 Source1:	openmosixcollector.init
 Patch0:		%{name}-mosix.patch
 URL:		http://www.openmosixview.com/
