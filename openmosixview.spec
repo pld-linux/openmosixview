@@ -2,7 +2,7 @@ Summary:	openMosixview - a cluster-management GUI
 Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
 Name:		openmosixview
 Version:	1.4
-Release:	0.4
+Release:	1
 Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
