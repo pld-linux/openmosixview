@@ -18,7 +18,7 @@ case "$1" in
         if [ ! -f /var/lock/subsys/openmosixcollector ]; then
                 # show "Starting %s service" openmosixcollector
                 msg_starting openmosixcollector
-                daemon openmosixcollector -d
+                daemon "openmosixcollector -d"
                 RETVAL=$?
                 [ $RETVAL -eq 0 ] && touch /var/lock/subsys/openmosixcollector
         else
