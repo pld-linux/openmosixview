@@ -124,4 +124,4 @@ fi
 
 %files collector
 %attr(755,root,root) %{_bindir}/openmosixcollector
-%attr(755,root,root) /etc/rc.d/init.d/openmosixcollector
+%attr(754,root,root) /etc/rc.d/init.d/openmosixcollector
