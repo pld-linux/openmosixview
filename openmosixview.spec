@@ -6,6 +6,7 @@ Release:	2
 Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
+#Source0Download: http://www.openmosixview.com/download.html
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
 # Source0-md5:	2e8fe16860cc9581194bf14bb4896b1d
 Source1:	openmosixcollector.init
@@ -76,7 +77,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/ \
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d \
 	   $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 TOPDIR=`pwd`
