@@ -50,7 +50,7 @@ Requires(post,preun):	/sbin/chkconfig
 openMosixcollector - collecting daemon which logs cluster+node
 information.
 
-%description -l pl collector
+%description collector -l pl
 openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
 
 %prep
