@@ -12,7 +12,7 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-
+RETVAL=0
 case "$1" in
   start)
 	# Check if the service is already running?
@@ -25,7 +25,6 @@ case "$1" in
 	else
 		# show "%s service is already running." openmosixcollector
 		msg_already_running openmosixcollector
-		exit 1
 	fi
 	;;
   stop)
@@ -34,26 +33,25 @@ case "$1" in
 	if [ -f /var/lock/subsys/openmosixcollector ]; then
 		msg_stopping openmosixcollector
 		killproc openmosixcollector
-		RETVAL=$?
 		rm -f /var/lock/subsys/openmosixcollector
 	else
 		# show "%s service is not running." openmosixcollector
 		msg_not_running openmosixcollector
-		exit 1
 	fi
 	;;
   status)
 	status openmosixcollector
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|reload|status}"
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
-
+	# show "Usage: %s {start|stop|restart|force-reload|status}"
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
