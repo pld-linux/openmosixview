@@ -1,20 +1,18 @@
+# TODO:	1). fix 3dmon and put it in separate subpackage.
+#	2). test all.
+
 Summary:	openMosixview - a cluster-management GUI
 Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
 Name:		openmosixview
-Version:	1.4
-Release:	3
+Version:	1.5
+Release:	0.1
 Group:		Applications/System
 License:	GPL
-Vendor:		Matt Rechenburg <mosixview@t-online.de>
-#Source0Download: http://www.openmosixview.com/download.html
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
-# Source0-md5:	2e8fe16860cc9581194bf14bb4896b1d
 Source1:	openmosixcollector.init
+Patch0:		%{name}-Makefiles_FLAGS.patch	
 URL:		http://www.openmosixview.com/
-BuildRequires:	libpng-devel
-BuildRequires:	libstdc++-devel
 BuildRequires:	qt-devel >= 2.3.0
-BuildRequires:	zlib-devel
 Requires:	kernel-mosix >= 2.4.22-1
 Requires:	%{name}-collector
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -55,42 +53,37 @@ openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-TOPDIR=`pwd`
-TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon 3dmon"
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}" \
+	CXX="%{__cxx}" \
+	CXXFLAGS="%{rpmcflags}"
 
-for i in ${TOOLZ}; do
-	cd ${i}
-	%configure2_13
-	cd ${TOPDIR}
-done
-
-for i in ${TOOLZ}; do
-	cd ${i}
-	%{__make}
-	cd ${TOPDIR}
-done
+#%%cd 3dmon/
+#%%./setup.standalone
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d \
-	   $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
-TOPDIR=`pwd`
-TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon 3dmon"
-for i in ${TOOLZ}
-do
-        cd ${i}
-	%{__make} DESTDIR=$RPM_BUILD_ROOT install
-        cd ${TOPDIR}
-	if [ ${i} != "openmosixcollector" ]
-	then
-		mv $RPM_BUILD_ROOT/usr/doc/${i} $RPM_BUILD_ROOT%{_docdir}/${i}
-	fi
-done
+install -d \
+	$RPM_BUILD_ROOT{/etc/rc.d/init.d,%{_bindir},%{_docdir}/%{name}-%{version}}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/openmosixcollector
+install openmosixcollector/openmosixcollector $RPM_BUILD_ROOT%{_bindir}
+
+install openmosixview/openmosixview $RPM_BUILD_ROOT%{_bindir}
+install openmosixanalyzer/openmosixanalyzer $RPM_BUILD_ROOT%{_bindir}
+install openmosixhistory/openmosixhistory $RPM_BUILD_ROOT%{_bindir}
+install openmosixprocs/openmosixprocs $RPM_BUILD_ROOT%{_bindir}
+install openmosixmigmon/openmosixmigmon $RPM_BUILD_ROOT%{_bindir}
+install openmosixpidlog/openmosixpidlog $RPM_BUILD_ROOT%{_bindir}
+#%%install 3dmon/3dmosmon/3dmosmon $RPM_BUILD_ROOT%{_bindir}
+#%%install 3dmon/mosstatd/mosstatd $RPM_BUILD_ROOT%{_bindir}
+#%%install /etc/init.d/mosstatd $RPM_BUILD_ROOT/etc/init.d
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,12 +106,16 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog TODO
+%doc AUTHORS README TODO docs/*
+%attr(755,root,root) %{_bindir}/openmosixview
 %attr(755,root,root) %{_bindir}/openmosixanalyzer
 %attr(755,root,root) %{_bindir}/openmosixhistory
-%attr(755,root,root) %{_bindir}/openmosixmigmon
 %attr(755,root,root) %{_bindir}/openmosixprocs
-%{_docdir}/*/*.html
+%attr(755,root,root) %{_bindir}/openmosixmigmon
+%attr(755,root,root) %{_bindir}/openmosixpidlog
+#%%attr(755,root,root) %{_bindir}/3dmosmon
+#%%attr(755,root,root) %{_bindir}/mosstatd
+
 
 %files collector
 %attr(755,root,root) %{_bindir}/openmosixcollector
