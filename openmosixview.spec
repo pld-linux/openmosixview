@@ -78,7 +78,7 @@ do
         cd ${TOPDIR}
 done
 
-install %{SOURCE1} /etc/rc.d/init.d/openmosixcollector
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/openmosixcollector
 
 %clean
 rm -rf $RPM_BUILD_ROOT
