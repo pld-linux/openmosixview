@@ -2,7 +2,7 @@ Summary:	openMosixview is a cluster-management GUI
 Summary(pl):	openMosixview to graficzny interfejs do zarz±dzania clustrem
 Name:		openmosixview
 Version:	1.4
-Release:	0.1
+Release:	0.2
 Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
@@ -65,6 +65,22 @@ install %{SOURCE1} /etc/rc.d/init.d/openmosixcollector
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post 
+/sbin/chkconfig --add openmosixcollector
+if [ -f /var/lock/subsys/openmosixcollector ]; then
+        /etc/rc.d/init.d/openmosixcollector restart 1>&2
+else
+        echo "Type \"/etc/rc.d/init.d/openmosixcollector start\" to start openmosixcollector." 1>&2
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+        if [ -f /var/lock/subsys/openmosixcollector ]; then
+                /etc/rc.d/init.d/openmosixcollector stop 1>&2
+        fi
+        /sbin/chkconfig --del openmosixcollector
+fi
 
 
 %files
