@@ -2,7 +2,7 @@ Summary:	openMosixview - a cluster-management GUI
 Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
 Name:		openmosixview
 Version:	1.4
-Release:	2
+Release:	3
 Group:		Applications/System
 License:	GPL
 Vendor:		Matt Rechenburg <mosixview@t-online.de>
@@ -10,13 +10,12 @@ Vendor:		Matt Rechenburg <mosixview@t-online.de>
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
 # Source0-md5:	2e8fe16860cc9581194bf14bb4896b1d
 Source1:	openmosixcollector.init
-Patch0:		%{name}-mosix.patch
 URL:		http://www.openmosixview.com/
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	qt-devel >= 2.3.0
 BuildRequires:	zlib-devel
-Requires:	kernel-mosix
+Requires:	kernel-mosix >= 2.4.22-1
 Requires:	%{name}-collector
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -56,8 +55,6 @@ openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
 
 %prep
 %setup -q
-
-%patch -p1
 
 %build
 TOPDIR=`pwd`
