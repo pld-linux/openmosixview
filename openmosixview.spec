@@ -40,8 +40,8 @@ openMosixmigmon - program monitoruj±cy migracjê procesów
 3dmosmon - program generuj±cy trójwymiarowy widok klastra
 
 %package collector
-Summary:	collecting daemon which logs cluster+node informations
-Summary(pl):	demon zbieraj±cy informacje z nodów
+Summary:	Collecting daemon which logs cluster+node informations
+Summary(pl):	Demon zbieraj±cy informacje z nodów
 Group:		Applications/System
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
