@@ -44,7 +44,7 @@ Summary:	collecting daemon which logs cluster+node informations
 Summary(pl):	demon zbieraj±cy informacje z nodów
 Group:		Applications/System
 PreReq:		rc-scripts
-Requires(post,preun): /sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 
 %description collector
 openMosixcollector - collecting daemon which logs cluster+node
@@ -62,16 +62,14 @@ openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
 TOPDIR=`pwd`
 TOOLZ="openmosixcollector openmosixanalyzer openmosixhistory openmosixprocs openmosixmigmon 3dmon"
 
-for i in ${TOOLZ}
-do
+for i in ${TOOLZ}; do
 	cd ${i}
-	%configure2_13 
+	%configure2_13
 	cd ${TOPDIR}
 done
 
-for i in ${TOOLZ}
-do
-        cd ${i}
+for i in ${TOOLZ}; do
+	cd ${i}
 	%{__make}
 	cd ${TOPDIR}
 done
