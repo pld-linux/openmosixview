@@ -18,8 +18,25 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 an openMosix-cluster management GUI
 
+openMosixview - the main monitoring+admistration application
+openMosixprocs - a process-box for managing processes
+openMosixcollector - collecting daemon which logs cluster+node informations
+openMosixanalyzer - for analyzing the data collected by the openMosixcollector
+openMosixhistory - a process-history for your cluster
+openMosixmigmon - for monitoring process migration
+3dmosmon - a 3d view for monitoring your cluster
+
 %description -l pl
 graficzny interfejs do zarz±dzania clustrem openMosix
+
+openMosixview - g³ówny program administracyjno/monitoruj±cy
+openMosixprocs - 
+openMosixcollector -  demon zbieraj±cy informacje z nodów
+openMosixanalyzer - program analizuj±cy dane zebrane przez openMosixcollector
+openMosixhistory - program generuj±cy historie procesów Twojego clustra
+openMosixmigmon - program monitoruj±cy migracje procesów
+3dmosmon - program generuj±cy trójwymiarowy widok Twojego clustra
+
 
 %prep
 %setup -q
