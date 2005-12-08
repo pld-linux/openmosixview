@@ -17,25 +17,21 @@ case "$1" in
   start)
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/openmosixcollector ]; then
-		# show "Starting %s service" openmosixcollector
 		msg_starting openmosixcollector
 		daemon "openmosixcollector -d"
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/openmosixcollector
 	else
-		# show "%s service is already running." openmosixcollector
 		msg_already_running openmosixcollector
 	fi
 	;;
   stop)
 	# Stop daemons.
-	# show "Stopping %s service" openmosixcollector
 	if [ -f /var/lock/subsys/openmosixcollector ]; then
 		msg_stopping openmosixcollector
 		killproc openmosixcollector
 		rm -f /var/lock/subsys/openmosixcollector
 	else
-		# show "%s service is not running." openmosixcollector
 		msg_not_running openmosixcollector
 	fi
 	;;
@@ -49,7 +45,6 @@ case "$1" in
 	exit $?
 	;;
   *)
-	# show "Usage: %s {start|stop|restart|force-reload|status}"
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
 esac
