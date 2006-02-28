@@ -6,15 +6,15 @@ Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
 Name:		openmosixview
 Version:	1.5
 Release:	0.1
-Group:		Applications/System
 License:	GPL
+Group:		Applications/System
 Source0:	http://www.openmosixview.com/download/%{name}-%{version}.tar.gz
 Source1:	openmosixcollector.init
-Patch0:		%{name}-Makefiles_FLAGS.patch	
+Patch0:		%{name}-Makefiles_FLAGS.patch
 URL:		http://www.openmosixview.com/
 BuildRequires:	qt-devel >= 2.3.0
-Requires:	kernel-mosix >= 2.4.22-1
 Requires:	%{name}-collector
+Requires:	kernel-mosix >= 2.4.22-1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,8 +41,8 @@ openMosixmigmon - program monitoruj±cy migracjê procesów
 Summary:	Collecting daemon which logs cluster+node informations
 Summary(pl):	Demon zbieraj±cy informacje z nodów
 Group:		Applications/System
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 
 %description collector
 openMosixcollector - collecting daemon which logs cluster+node
