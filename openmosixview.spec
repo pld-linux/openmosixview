@@ -49,7 +49,7 @@ openMosixcollector - collecting daemon which logs cluster+node
 information.
 
 %description collector -l pl
-openMosixcollector -  demon zbieraj±cy informacje z wêz³ów.
+openMosixcollector - demon zbieraj±cy informacje z wêz³ów.
 
 %prep
 %setup -q
@@ -91,17 +91,17 @@ rm -rf $RPM_BUILD_ROOT
 %post collector
 /sbin/chkconfig --add openmosixcollector
 if [ -f /var/lock/subsys/openmosixcollector ]; then
-        /etc/rc.d/init.d/openmosixcollector restart 1>&2
+	/etc/rc.d/init.d/openmosixcollector restart 1>&2
 else
-        echo "Type \"/etc/rc.d/init.d/openmosixcollector start\" to start openmosixcollector." 1>&2
+	echo "Type \"/etc/rc.d/init.d/openmosixcollector start\" to start openmosixcollector." 1>&2
 fi
 
 %preun collector
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/openmosixcollector ]; then
-                /etc/rc.d/init.d/openmosixcollector stop 1>&2
-        fi
-        /sbin/chkconfig --del openmosixcollector
+	if [ -f /var/lock/subsys/openmosixcollector ]; then
+		/etc/rc.d/init.d/openmosixcollector stop 1>&2
+	fi
+	/sbin/chkconfig --del openmosixcollector
 fi
 
 %files
