@@ -2,7 +2,7 @@
 #	2). test all.
 
 Summary:	openMosixview - a cluster-management GUI
-Summary(pl):	openMosixview - graficzny interfejs do zarz±dzania klastrem
+Summary(pl.UTF-8):   openMosixview - graficzny interfejs do zarzÄ…dzania klastrem
 Name:		openmosixview
 Version:	1.5
 Release:	0.1
@@ -27,19 +27,19 @@ openMosixhistory - a process-history for your cluster
 openMosixmigmon - for monitoring process migration
 3dmosmon - a 3d view for monitoring your cluster
 
-%description -l pl
-Graficzny interfejs do zarz±dzania klastrem openMosix.
+%description -l pl.UTF-8
+Graficzny interfejs do zarzÄ…dzania klastrem openMosix.
 
-openMosixview - g³ówny program administracyjno-monitoruj±cy
-openMosixprocs - narzêdzie do zarz±dzania procesami
-openMosixanalyzer - program analizuj±cy dane zebrane przez openMosixcollector
-openMosixhistory - program generuj±cy historiê procesów klastra
-openMosixmigmon - program monitoruj±cy migracjê procesów
-3dmosmon - program generuj±cy trójwymiarowy widok klastra
+openMosixview - gÅ‚Ã³wny program administracyjno-monitorujÄ…cy
+openMosixprocs - narzÄ™dzie do zarzÄ…dzania procesami
+openMosixanalyzer - program analizujÄ…cy dane zebrane przez openMosixcollector
+openMosixhistory - program generujÄ…cy historiÄ™ procesÃ³w klastra
+openMosixmigmon - program monitorujÄ…cy migracjÄ™ procesÃ³w
+3dmosmon - program generujÄ…cy trÃ³jwymiarowy widok klastra
 
 %package collector
 Summary:	Collecting daemon which logs cluster+node informations
-Summary(pl):	Demon zbieraj±cy informacje z nodów
+Summary(pl.UTF-8):   Demon zbierajÄ…cy informacje z nodÃ³w
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
@@ -48,8 +48,8 @@ Requires:	rc-scripts
 openMosixcollector - collecting daemon which logs cluster+node
 information.
 
-%description collector -l pl
-openMosixcollector - demon zbieraj±cy informacje z wêz³ów.
+%description collector -l pl.UTF-8
+openMosixcollector - demon zbierajÄ…cy informacje z wÄ™zÅ‚Ã³w.
 
 %prep
 %setup -q
