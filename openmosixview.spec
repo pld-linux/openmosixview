@@ -2,7 +2,7 @@
 #	2). test all.
 
 Summary:	openMosixview - a cluster-management GUI
-Summary(pl.UTF-8):   openMosixview - graficzny interfejs do zarządzania klastrem
+Summary(pl.UTF-8):	openMosixview - graficzny interfejs do zarządzania klastrem
 Name:		openmosixview
 Version:	1.5
 Release:	0.1
@@ -39,7 +39,7 @@ openMosixmigmon - program monitorujący migrację procesów
 
 %package collector
 Summary:	Collecting daemon which logs cluster+node informations
-Summary(pl.UTF-8):   Demon zbierający informacje z nodów
+Summary(pl.UTF-8):	Demon zbierający informacje z nodów
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
